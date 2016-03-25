@@ -16,5 +16,12 @@
 !/log/.keep
 /tmp
 
-# Ignore database
-/config/database.yml
+# Ignore other files
+database.yml
+doc/
+*.swp
+*~
+.project
+.DS_Store
+.idea
+.secret
