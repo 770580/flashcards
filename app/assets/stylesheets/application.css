@@ -12,8 +12,8 @@
  *
  *= require_tree .
  *= require_self
+ *= require css/bootstrap
  */
-*= require bootstrap.min
 #container {
   margin: 48px auto;
   width: 960px;
