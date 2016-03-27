@@ -12,7 +12,7 @@
  *
  *= require_tree .
  *= require_self
- *= require css/bootstrap
+ *= require bootstrap
  */
 #container {
   margin: 48px auto;
