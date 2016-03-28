@@ -6,7 +6,7 @@ class Card < ActiveRecord::Base
 
 	def original_text_not_equal_translated_text
 	  if original_text.mb_chars.downcase == translated_text.mb_chars.downcase
-	  	errors.add(:translated_text, "не должны быть равно оригинальному слову")
+	  	errors.add(:translated_text, "Перевод не должен быть таким же, как и оригинальное слово")
 	  end
 	end
 end
