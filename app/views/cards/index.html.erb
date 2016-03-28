@@ -4,7 +4,14 @@
 	<% @card.each do |card| %>
 	
 	<ul class="list-group">
-	  <li class="list-group-item"><%= card.original_text %> <%= card.translated_text %> <%= card.review_date.strftime("%d/%m/%Y") %></li>
+	  <li class="list-group-item">
+	    <%= card.original_text %> 
+	    <%= card.translated_text %> 
+	    <%= card.review_date.strftime("%d/%m/%Y") %>
+	    <%= link_to 'Редактирование', edit_card_path(card) %>
+	    <%= link_to "Удалить", card, method: :delete,
+	    data: { confirm: "Уверен?" }%>
+	  </li>
 	</ul>
 
 	<% end %>
