@@ -6,11 +6,11 @@
    <% else %>
      <p>Перевод</p>
      <%= @card.translated_text %>
-	 <%= simple_form_for(:flash_card, html: { class: '.form-inline' }) do |f| %>
-	   <%= f.input :confirm_original_text, label: 'Слово' %>
-	   <%= f.hidden_field :confirm_id, value: @card.id %>
-	   <%= f.button :submit, "Проверить" %>
-	 <% end %>
+	   <%= simple_form_for(:flash_card, :url => check_card_path, html: { class: '.form-inline' }) do |f| %>
+	     <%= f.input :input_text, label: 'Слово' %>
+	     <%= f.hidden_field :confirm_id, value: @card.id %>
+	     <%= f.button :submit, "Проверить" %>
+	   <% end %>
    <% end %>
   </div>
 </div>
