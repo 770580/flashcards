@@ -9,4 +9,8 @@ class Card < ActiveRecord::Base
 	  	errors.add(:translated_text, "Перевод не должен быть таким же, как и оригинальное слово")
 	  end
 	end
+    
+	def self.random
+      where("review_date <= ?", Date.today).order("RANDOM()").first
+	end
 end
