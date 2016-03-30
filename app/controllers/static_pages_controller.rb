@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def index
-  	@card = Card.random
+    @card = Card.random
   end
 
   def flash_card
@@ -12,7 +12,7 @@ class StaticPagesController < ApplicationController
       redirect_to root_path
     else
       flash[:error] = "Ошибка"
-  	  redirect_to root_path
+      redirect_to root_path
     end
   end
 end
