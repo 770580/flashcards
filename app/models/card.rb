@@ -1,7 +1,5 @@
 class Card < ActiveRecord::Base
-  validates :original_text,
-            :translated_text,
-            :review_date, presence: true
+  validates :original_text, :translated_text, :review_date, presence: true
   validate  :original_text_not_equal_translated_text
 
   def original_text_not_equal_translated_text
@@ -12,5 +10,9 @@ class Card < ActiveRecord::Base
 
   def self.random
     where("review_date <= ?", Date.today).order("RANDOM()").first
+  end
+
+  def update_time(f_day)
+  	update(review_date: f_day)
   end
 end

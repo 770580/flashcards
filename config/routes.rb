@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :cards
   root  'static_pages#index'
-  match '/', to: 'static_pages#flash_card', via: 'post'
+  match '/', to: 'cards#check_card', via: 'post'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
