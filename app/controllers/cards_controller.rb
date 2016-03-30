@@ -43,11 +43,10 @@ class CardsController < ApplicationController
     if card[:original_text] == input_text
       card.inc_review_date
       flash[:notice] = "Верно"
-      redirect_to root_path
     else
       flash[:error] = "Ошибка"
-      redirect_to root_path
     end
+    redirect_to root_path
   end
 
   private
