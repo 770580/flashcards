@@ -4,7 +4,7 @@ class Card < ActiveRecord::Base
 
   def original_text_not_equal_translated_text
     if original_text.mb_chars.downcase == translated_text.mb_chars.downcase
-      errors.add(:translated_text, "Перевод не должен быть таким же, как и оригинальное слово")
+       errors.add(:translated_text, "Перевод не должен быть таким же, как и оригинальное слово")
 	end
   end
 
@@ -12,7 +12,7 @@ class Card < ActiveRecord::Base
     where("review_date <= ?", Date.today).order("RANDOM()").first
   end
 
-  def update_time(f_day)
-  	update(review_date: f_day)
+  def inc_review_date
+  	update(review_date: Time.now+3.days)
   end
 end

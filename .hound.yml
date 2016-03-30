@@ -1,17 +1,15 @@
-LineLength:
-  Description: 'Limit lines to 80 characters.'
-  Max: 80
+LeadingCommentSpace:
+  Description: 'Comments should start with a space.'
   Enabled: false
-  
-Style/SpaceBeforeComment:
-  Description: Checks for missing space between code and a comment on the same line.
-  Enabled: false
-  
+
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-string-literals
-  Enabled: true
-  EnforcedStyle: double_quotes
-  SupportedStyles:
-  - single_quotes
-  - double_quotes
+  Enabled: false
+  EnforcedStyle: single_quote
+
+Metrics/LineLength:
+  Description: 'Limit lines to 80 characters.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
+  Enabled: false
+

@@ -41,7 +41,7 @@ class CardsController < ApplicationController
     input_text = params[:flash_card][:input_text]
     card = Card.find(params[:flash_card][:confirm_id])
     if card[:original_text] == input_text
-      card.update_time(Time.now+3.days)
+      card.inc_review_date
       flash[:notice] = "Верно"
       redirect_to root_path
     else
