@@ -19,5 +19,5 @@ require 'open-uri'
 require 'nokogiri'
 words = Nokogiri::HTML(open("http://www.languagedaily.com/learn-german/vocabulary/common-german-words"))
 words.css('.bigLetter').each do |word|
-  Card.create(original_text: word.text, translated_text: word.next_element.text, review_date: Date.today.next_day(3))
+  Card.create(original_text: word.text, translated_text: word.next_element.text, review_date: Date.today)
 end
