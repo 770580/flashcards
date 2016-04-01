@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Card do
-  let(:card){ Card.new(original_text: "Дом", translated_text: "House", review_date: Date.today) }
+  let(:card) { Card.new(original_text: "Дом", translated_text: "House", review_date: Date.today) }
 
   it "when original_text and translated_text equal should be invalid" do
     bad_words = %w[Дом ДоМ доМ]
