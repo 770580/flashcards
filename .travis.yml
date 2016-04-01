@@ -4,4 +4,4 @@ rvm:
 env:
   - DB=postgresql
 before_script:
-  -cp config/database.travis.yml config/database.yml
+  - cp config/database.travis.yml config/database.yml
