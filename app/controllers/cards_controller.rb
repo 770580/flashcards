@@ -4,7 +4,7 @@ class CardsController < ApplicationController
   end
 
   def new
-  	@card = Card.new
+    @card = Card.new
   end
 
   def edit
@@ -22,7 +22,6 @@ class CardsController < ApplicationController
 
   def update
     @card = Card.find(params[:id])
- 
     if @card.update(card_params)
       redirect_to cards_path
     else
@@ -33,7 +32,6 @@ class CardsController < ApplicationController
   def destroy
     @card = Card.find(params[:id])
     @card.destroy
- 
     redirect_to cards_path
   end
 
