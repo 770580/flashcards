@@ -1,14 +1,9 @@
 development:
   adapter: postgresql
   host: localhost
-  username: dev
-  password: pass
-  database: app-dev
+  database: dev_test_db
 
 test:
   adapter: postgresql
   host: localhost
-  username: dev
-  password: pass
-  database: test
-  encoding: UTF8
+  database: dev_test_db
