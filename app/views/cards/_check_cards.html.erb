@@ -1,8 +1,7 @@
 <div class="container">
   <div class="jumbotron">
-   <%= render 'shared/flashes' %>
    <% unless @card %>
-     <% flash[:notice] = "На сегодня нет больше карточек" %>
+     <% flash.now[:info] = "На сегодня нет больше карточек" %>
    <% else %>
      <p>Перевод</p>
      <%= @card.translated_text %>

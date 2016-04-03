@@ -4,4 +4,10 @@ FactoryGirl.define do
     translated_text "Собака"
     review_date Date.today
   end
+
+  factory :user do
+    email "a@a.ru"
+    password "aaa"
+    password_confirmation "aaa"
+  end
 end
