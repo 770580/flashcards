@@ -3,7 +3,7 @@
 	<%= simple_form_for(@card, html: { class: '.form-inline' }) do |f| %>
 	  <%= f.input :original_text, label: 'Слово' %>
 	  <%= f.input :translated_text, label: 'Перевод' %>
-	  <%= f.hidden_field :review_date, value: Date.today.next_day(3) %>
+	  <%= f.hidden_field :review_date, value: Date.today + 3.days %> 
 	  <%= f.button :submit, "Создать" %>
 	<% end %>
   </div>
