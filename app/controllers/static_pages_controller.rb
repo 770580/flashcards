@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
   def index
-    @card = Card.random
+    @card = current_user.cards.random
   end
 end
