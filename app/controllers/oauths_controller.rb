@@ -10,7 +10,7 @@ class OauthsController < ApplicationController
   def callback
     provider = auth_params[:provider]
     if @user = login_from(provider)
-      redirect_to root_path, :notice => "Вы зашли через #{provider.titleize}!"
+      redirect_to root_path, notice: "Вы зашли через #{provider.titleize}!"
     else
       begin
         @user = create_from(provider)
@@ -18,18 +18,19 @@ class OauthsController < ApplicationController
 
         reset_session # protect from session fixation attack
         auto_login(@user)
-        redirect_to root_path, :notice => "Вы зашли через #{provider.titleize}!"
+        redirect_to root_path, notice: "Вы зашли через #{provider.titleize}!"
       rescue
-        redirect_to root_path, :alert => "Вы вышли через #{provider.titleize}!"
+        redirect_to root_path, notice: "Вы вышли через #{provider.titleize}!"
       end
     end
   end
 
-  #example for Rails 4: add private method below and use "auth_params[:provider]" in place of 
+  #example for Rails 4: add private method below and use "auth_params[:provider]" in place of
   #"params[:provider] above.
 
-   private
-   def auth_params
-     params.permit(:code, :provider)
-   end
+  private
+
+  def auth_params
+    params.permit(:code, :provider)
+  end
 end
