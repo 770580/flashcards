@@ -8,14 +8,14 @@ describe User do
     before { click_link "Регистрация" }
 
     it "should not create user with invalid parameters" do
-      expect {click_button "Создать" }.not_to change(User, :count)
+      expect { click_button "Создать" }.not_to change(User, :count)
     end
 
     it "should create user with valid parameters" do
       fill_in "Email", with: "user@user.ru"
       fill_in "Пароль", with: "asdf"
       fill_in "Пароль еще раз", with: "asdf"
-      expect {click_button "Создать"}.to change(User, :count).by(1)
+      expect { click_button "Создать" }.to change(User, :count).by(1)
     end
   end
 
@@ -38,7 +38,7 @@ describe User do
   end
 
   it "should be logout" do
-  	user_login user
+    user_login user
     click_link "Выход"
     expect(page).to have_content("Войти")
   end

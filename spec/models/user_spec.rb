@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User do
-  let(:user) { FactoryGirl.create(:user)} 
+  let(:user) { FactoryGirl.create(:user) }
   it "email format should be invalid" do
     addresses = %w[user@foo,com user_at_foo.org example.auser@foo. foo@bar_baz.com foo@bar+baz.com foo@bar..com]
     addresses.each do |addr|
