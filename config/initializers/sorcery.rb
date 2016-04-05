@@ -11,7 +11,7 @@ Rails.application.config.sorcery.configure do |config|
   # Default: `[]`
   #
   config.external_providers = [:facebook]
- 
+
   config.facebook.key = ENV["SORCERY_FACEBOOK_KEY"]
   config.facebook.secret = ENV["SORCERY_FACEBOOK_SECRET"]
   config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
@@ -19,7 +19,7 @@ Rails.application.config.sorcery.configure do |config|
   config.facebook.access_permissions = ["email"]
   config.facebook.display = "popup"
   config.facebook.api_version = "v2.2"
-  
+
   # --- user config ---
   config.user_config do |user|
     user.authentications_class = Authentication
