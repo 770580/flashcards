@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="jumbotron">
+	<%= simple_form_for(@user, html: { class: '.form-inline' }) do |f| %>
+	  <%= f.input :email %>
+	  <%= f.input :password, label: 'Пароль' %>
+	  <%= f.input :password_confirmation, label: 'Пароль еще раз' %>
+	  <%= f.button :submit, "Изменить" %>
+	<% end %>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
   def index
-    @card = Card.all
+    @card = current_user.cards
   end
 
   def new
@@ -40,15 +40,15 @@ class CardsController < ApplicationController
     card = Card.find(params[:flash_card][:confirm_id])
     if card[:original_text] == input_text
       card.inc_review_date
-      flash[:notice] = "Верно"
+      flash[:success] = "Верно"
     else
-      flash[:error] = "Ошибка"
+      flash[:danger] = "Ошибка"
     end
     redirect_to root_path
   end
 
   private
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date)
+      params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id)
     end
 end

@@ -1,8 +1,10 @@
-<div class="container">
-  <div class="jumbotron">
-	<p>
-        Первый в мире удобный менеджер флеш-карточек. Именно так.
-	</p>
+<% unless current_user %>
+  <div class="container">
+    <div class="jumbotron">
+	  <p>Первый в мире удобный менеджер флеш-карточек.</p>
+      <p>Именно так.</p>
+    </div>
   </div>
-</div>
-<%= render 'cards/check_cards' %>              
+<% else %>
+  <%= render 'cards/check_cards' %> 
+<% end %>             
