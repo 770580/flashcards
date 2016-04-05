@@ -2,12 +2,17 @@ Rails.application.routes.draw do
 
   resources :users
   resources :cards
-  resources :user_sessions
+  resources :user_sessions, only: [:new, :create, :destroy]
 
   root 'static_pages#index'
   post 'check_card' => 'cards#check_card'
   get 'login' => 'user_sessions#new', :as => :login
   post 'logout' => 'user_sessions#destroy', :as => :logout
+
+  post "oauth/callback" => "oauths#callback"
+  get "oauth/callback" => "oauths#callback" # for use with Github
+  get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

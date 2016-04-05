@@ -5,7 +5,7 @@
           <%= link_to "Флэшкарточкер", root_path, class:"navbar-brand" %>
         </div>
         <ul class="nav navbar-nav">
-	    <% if current_user %>
+	    <% if logged_in? %>
 	      <li class="active"><%= link_to "Все карточки", cards_path %></li>
 	      <li><%= link_to "Добавить карточку", new_card_path %></li>
 	      </ul>
@@ -16,7 +16,9 @@
                    <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-	            <li><%= link_to "Редактировать аккаунт", edit_user_path(current_user.id) %></li>
+                <% unless current_user.has_linked_facebook? %>
+	              <li><%= link_to "Редактировать аккаунт", edit_user_path(current_user.id) %></li>
+	            <% end %>
 	            <li class="divider"></li>
 	            <li><%= link_to "Выход", :logout, method: :post %></li>
 	          </ul>
@@ -27,11 +29,10 @@
 	      <ul class="nav navbar-nav navbar-right">
 	        <li><%= link_to "Регистрация", new_user_path %></li>
 	        <li><%= link_to "Вход", :login %></li>
+	        <li><%= link_to 'Facebook', auth_at_provider_path(provider: :facebook) %></li>
 	      </ul>
 	    <% end %>
 	  </div>
   </nav>
-  <% flash.each do |key, message| %>
-    <%= content_tag(:div, message, class: "alert alert-#{key}") %>
-  <% end %>
+  <%= render 'shared/flashes' %>
 </header>
