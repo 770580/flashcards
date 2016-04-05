@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe User do
   
-  let(:user) { FactoryGirl.create(:user)}
+  let(:user) { FactoryGirl.create(:user) }
   before { visit root_path }
   describe "Registration" do
     before { click_link "Регистрация" }
