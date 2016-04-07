@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class CardImageUploader < CarrierWave::Uploader::Base
-
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
@@ -26,7 +25,7 @@ class CardImageUploader < CarrierWave::Uploader::Base
 
   # Process files as they are uploaded:
   # process :scale => [360, 360]
-  process resize_to_fit: [360,360]
+  process resize_to_fit: [360, 360]
   #
   # def scale(width, height)
   #   # do something
@@ -44,7 +43,7 @@ class CardImageUploader < CarrierWave::Uploader::Base
   end
 
   def content_type_whitelist
-    /image\//
+    %r(/image\//)
   end
 
   # Override the filename of the uploaded files:
@@ -52,5 +51,4 @@ class CardImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end
