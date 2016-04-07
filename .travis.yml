@@ -5,5 +5,4 @@ env:
   - DB=postgresql
 before_script:
   - cp config/database.travis.yml config/database.yml
-  - cp config/local_env.travis.yml config/local_env.yml
   - psql -c 'create database dev_test_db' -U postgres
