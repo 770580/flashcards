@@ -3,6 +3,7 @@
    <% unless @card %>
      <% flash.now[:info] = "На сегодня нет больше карточек" %>
    <% else %>
+     <%= image_tag @card.card_image.url if @card.card_image? %>
      <p>Перевод</p>
      <%= @card.translated_text %>
 	   <%= simple_form_for(:flash_card, url: check_card_path, html: { class: '.form-inline' }) do |f| %>
