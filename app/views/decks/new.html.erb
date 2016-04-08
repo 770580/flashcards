@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="jumbotron">
+	<%= simple_form_for(@deck, html: { class: '.form-inline' }) do |f| %>
+	  <%= f.input :name, label: 'Название колоды' %>
+	  <%= f.input :active, as: :boolean, default: false %>
+	  <%= f.hidden_field :user_id, value: current_user.id %> 
+	  <%= f.button :submit, "Создать" %>
+	<% end %>
+  </div>
+</div>

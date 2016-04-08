@@ -30,13 +30,9 @@ ActiveRecord::Schema.define(version: 20160407141159) do
     t.string   "original_text"
     t.string   "translated_text"
     t.date     "review_date"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "user_id"
-    t.string   "card_image_file_name"
-    t.string   "card_image_content_type"
-    t.integer  "card_image_file_size"
-    t.datetime "card_image_updated_at"
     t.string   "card_image"
     t.integer  "deck_id"
   end

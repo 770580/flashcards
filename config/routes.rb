@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   resources :users
   resources :cards
   resources :user_sessions, only: [:new, :create, :destroy]
+  resources :decks
 
   root 'static_pages#index'
   post 'check_card' => 'cards#check_card'
+  post 'active_deck' => 'decks#active_deck'
   get 'login' => 'user_sessions#new', :as => :login
   post 'logout' => 'user_sessions#destroy', :as => :logout
 
