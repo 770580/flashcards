@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :cards
+  has_many :decks
   authenticates_with_sorcery! do |config|
     config.authentications_class = Authentication
   end
