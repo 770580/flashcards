@@ -47,8 +47,13 @@ class CardsController < ApplicationController
     redirect_to root_path
   end
 
+  def select_deck
+    @card = Card.find_by_deck_id(params[:select_deck][:deck_id])
+    render 'index'
+  end
+
   private
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :card_image)
+      params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :card_image, :deck_id)
     end
 end

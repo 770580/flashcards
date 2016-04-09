@@ -26,7 +26,7 @@ describe User do
     it "should be successful login" do
       click_link "Вход"
       user_login user
-      expect(page).to have_content("Login successful")
+      expect(page).to have_content(user.email)
     end
 
     it "should be failed with incorrext password" do

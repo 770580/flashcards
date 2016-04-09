@@ -10,4 +10,9 @@ FactoryGirl.define do
     password "asdf"
     password_confirmation "asdf"
   end
+
+  factory :deck do
+    name "english"
+    active "true"
+  end
 end
