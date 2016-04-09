@@ -10,10 +10,10 @@ class DecksController < ApplicationController
   def edit
     @deck = Deck.find(params[:id])
   end
-  
+
   def create
     @deck = Deck.new(deck_params)
-    if @deck.save   
+    if @deck.save
       current_user.decks.make_others_inactive(@deck.id) if @deck.active
       redirect_to decks_path
     else
@@ -44,7 +44,8 @@ class DecksController < ApplicationController
   end
 
   private
-    def deck_params
-      params.require(:deck).permit(:name, :active, :user_id)
-    end
+
+  def deck_params
+    params.require(:deck).permit(:name, :active, :user_id)
+  end
 end

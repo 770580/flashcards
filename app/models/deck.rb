@@ -7,7 +7,7 @@ class Deck < ActiveRecord::Base
   def self.choose_active
     where('active = ?', true)
   end
-  
+
   def self.make_others_inactive(deck_id)
     where('id != ?', deck_id).update_all("active = 'false'")
   end
