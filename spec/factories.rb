@@ -4,7 +4,7 @@ FactoryGirl.define do
     translated_text "Собака"
     review_date Date.today
     user
-    deck_id 1
+    deck
   end
 
   factory :user do

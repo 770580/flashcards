@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Deck do
   let(:user) { FactoryGirl.create(:user) }
-  let(:deck) { FactoryGirl.create(:deck, user_id: user.id) }
+  let(:deck) { FactoryGirl.create(:deck, user: user) }
 
   it "should be choose active deck" do
     deck.save

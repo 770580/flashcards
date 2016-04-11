@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 describe Card do
-  let(:card) { FactoryGirl.create(:card, original_text: "Дом", translated_text: "House") }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:deck) { FactoryGirl.create(:deck, user: user) }
+  let(:card) { FactoryGirl.create(:card, original_text: "Дом", translated_text: "House", user: user, deck: deck) }
 
   it "when original_text and translated_text equal should be invalid" do
     bad_words = %w[Дом ДоМ доМ]
