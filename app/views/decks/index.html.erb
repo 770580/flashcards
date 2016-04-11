@@ -5,7 +5,7 @@
 	<% @deck.each do |deck| %>
 	  <tr <%= 'class = bg-success' if deck.active %> >
 	    <td><%= deck.name %></td>
-	    <td><%= render 'active_form', deck_id: deck.id %></td>
+	    <td><%= render 'active_form', deck_id: deck.id unless deck.active %></td>
 	    <td><%= link_to 'Изменить название', edit_deck_path(deck), class: 'btn btn-default btn-sm' %></td>
 	    <td><%= link_to "Удалить", deck, method: :delete,
 	      data: { confirm: "Уверен?" }, class: 'btn btn-default btn-sm'%></td>
