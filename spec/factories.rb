@@ -3,6 +3,8 @@ FactoryGirl.define do
     original_text "Dog"
     translated_text "Собака"
     review_date Date.today
+    user
+    deck_id 1
   end
 
   factory :user do
@@ -14,5 +16,6 @@ FactoryGirl.define do
   factory :deck do
     name "english"
     active "true"
+    user
   end
 end

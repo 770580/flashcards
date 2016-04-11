@@ -14,7 +14,7 @@ class DecksController < ApplicationController
   def create
     @deck = Deck.new(deck_params)
     if @deck.save
-      current_user.decks.make_others_inactive(@deck.id) if @deck.active
+      Deck.make_others_inactive(current_user.id, @deck.id) if @deck.active
       redirect_to decks_path
     else
       render 'new'
@@ -39,7 +39,7 @@ class DecksController < ApplicationController
   def active_deck
     @deck = Deck.find(params[:active_deck][:deck_id])
     @deck.update(active: true)
-    current_user.decks.make_others_inactive(params[:active_deck][:deck_id])
+    Deck.make_others_inactive(current_user.id, params[:active_deck][:deck_id])
     redirect_to decks_path
   end
 

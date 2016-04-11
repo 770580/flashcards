@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Deck do
   let(:user) { FactoryGirl.create(:user) }
-  let!(:deck) { FactoryGirl.create(:deck, user_id: user.id) }
+  let!(:deck) { FactoryGirl.create(:deck, user: user) }
   before do
     visit root_path
     user_login user

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe "Card pages" do
   let(:user) { FactoryGirl.create(:user) }
-  let(:deck) { FactoryGirl.create(:deck, user_id: user.id) }
-  let!(:card) { FactoryGirl.create(:card, user_id: user.id, deck_id: deck.id) }
+  let(:deck) { FactoryGirl.create(:deck, user: user) }
+  let!(:card) { FactoryGirl.create(:card, user: user, deck_id: deck.id) }
 
   before do
     visit root_path

@@ -5,10 +5,10 @@ class Deck < ActiveRecord::Base
   validates :name, :user_id, presence: true
 
   def self.choose_active
-    where('active = ?', true)
+    where(active: true)
   end
 
-  def self.make_others_inactive(deck_id)
-    where('id != ?', deck_id).update_all("active = 'false'")
+  def self.make_others_inactive(user_id, deck_id)
+    where(user_id: user_id).where('id != ?', deck_id).update_all(active: false)
   end
 end
