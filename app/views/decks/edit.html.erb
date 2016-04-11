@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="jumbotron">
+	<%= simple_form_for(@deck, html: { class: '.form-inline' }) do |f| %>
+	  <%= f.input :name, label: 'Слово' %>
+	  <%= f.button :submit, "Изменить название" %>
+	<% end %>
+  </div>
+</div>

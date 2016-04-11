@@ -1,0 +1,4 @@
+<%= simple_form_for(:active_deck, url: active_deck_path, html: { class: '.form-inline' }) do |f| %>
+  <%= f.hidden_field :deck_id, value: deck_id %>
+  <%= f.button :submit, "Сделать активной" %>
+<% end %>
