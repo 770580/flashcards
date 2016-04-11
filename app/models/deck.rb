@@ -8,7 +8,7 @@ class Deck < ActiveRecord::Base
     where(active: true)
   end
 
-  def self.make_others_inactive(user_id, deck_id)
-    where(user_id: user_id).where('id != ?', deck_id).update_all(active: false)
+  def self.make_others_inactive(deck)
+    where(user_id: deck.user_id).where('id != ?', deck.id).update_all(active: false)
   end
 end
