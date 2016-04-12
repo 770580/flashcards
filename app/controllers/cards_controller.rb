@@ -51,7 +51,7 @@ class CardsController < ApplicationController
   end
 
   private
-  
+
   def set_box(box)
     @card.update(box: box, error_count: 0)
     @card.inc_review_date(box)
