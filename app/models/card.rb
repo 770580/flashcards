@@ -17,16 +17,16 @@ class Card < ActiveRecord::Base
 
   def inc_review_date(box)
     case box
-      when 1 then
-        update(review_date: Time.now + 12.hours)
-      when 2 then
-        update(review_date: Time.now + 3.days)
-      when 3 then
-        update(review_date: Time.now + 7.days)
-      when 4 then
-        update(review_date: Time.now + 2.weeks)
-      when 5 then
-        update(review_date: Time.now + 1.month)
-      end
+    when 1 then
+      update(review_date: Time.now + 12.hours)
+    when 2 then
+      update(review_date: Time.now + 3.days)
+    when 3 then
+      update(review_date: Time.now + 7.days)
+    when 4 then
+      update(review_date: Time.now + 2.weeks)
+    when 5 then
+      update(review_date: Time.now + 1.month)
+    end
   end
 end

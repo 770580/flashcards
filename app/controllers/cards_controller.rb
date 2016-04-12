@@ -51,12 +51,13 @@ class CardsController < ApplicationController
   end
 
   private
-    def set_box(box)
-      @card.update(box: box, error_count: 0)
-      @card.inc_review_date(box)
-    end
+  
+  def set_box(box)
+    @card.update(box: box, error_count: 0)
+    @card.inc_review_date(box)
+  end
 
-    def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :card_image, :deck_id, :box, :error_count)
-    end
+  def card_params
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :card_image, :deck_id, :box, :error_count)
+  end
 end
