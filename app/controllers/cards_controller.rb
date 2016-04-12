@@ -38,13 +38,13 @@ class CardsController < ApplicationController
   def check_card
     input_text = params[:flash_card][:input_text]
     @card = Card.find(params[:flash_card][:confirm_id])
-    if @card[:original_text] == input_text
+    if @card.original_text == input_text
       @card.box += 1 if @card.box < 5
-      set_box(@card.box)
+      set_new_box_and_review_data(@card.box)
       flash[:success] = "Верно"
     else
       @card.update(error_count: @card.error_count + 1)
-      set_box(1) if @card.error_count == 3
+      set_new_box_and_review_data(1) if @card.error_count == 3
       flash[:danger] = "Ошибка"
     end
     redirect_to root_path
@@ -52,7 +52,7 @@ class CardsController < ApplicationController
 
   private
 
-  def set_box(box)
+  def set_new_box_and_review_data(box)
     @card.update(box: box, error_count: 0)
     @card.inc_review_date(box)
   end
