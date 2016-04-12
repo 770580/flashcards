@@ -20,29 +20,23 @@ describe Card do
   end
 
   describe "add time in review_date" do
-    it "box 1 plus 12 hours" do
-      card.inc_review_date(1)
-      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 12.hours)
+    inc_time = [0, 12.hours, 3.days, 7.days, 2.weeks, 1.month]
+    describe "if check result true" do
+      for i in 1..5
+        before do
+          card = FactoryGirl.create(:card, user: user, deck: deck, box: i)
+        end
+
+        it "box #{i} plus #{inc_time[i]}" do
+          card.inc_review_date(card, true)
+          expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + inc_time[card.box])
+        end
+      end
     end
 
-    it "box 2 plus 3 days" do
-      card.inc_review_date(2)
-      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 3.days)
-    end
-
-    it "box 3 plus 7 days" do
-      card.inc_review_date(3)
-      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 7.days)
-    end
-
-    it "box 4 plus 2 weeks" do
-      card.inc_review_date(4)
-      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 2.weeks)
-    end
-
-    it "box 5 plus 1 month" do
-      card.inc_review_date(5)
-      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 1.month)
+    it "if check result false 3 times review_date should be plus 12 hours" do
+      3.times { card.inc_review_date(card, false) }
+      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + inc_time[1])
     end
   end
 end
