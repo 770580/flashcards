@@ -39,10 +39,10 @@ class CardsController < ApplicationController
     input_text = params[:flash_card][:input_text]
     card = Card.find(params[:flash_card][:confirm_id])
     if card.original_text == input_text
-      card.inc_review_date(card, true)
+      card.inc_review_date(true)
       flash[:success] = "Верно"
     else
-      card.inc_review_date(card, false)
+      card.inc_review_date(false)
       flash[:danger] = "Ошибка"
     end
     redirect_to root_path
@@ -51,6 +51,6 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :card_image, :deck_id, :box, :error_count)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :card_image, :deck_id, :level, :error_count)
   end
 end
