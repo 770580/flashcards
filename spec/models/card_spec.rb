@@ -19,8 +19,40 @@ describe Card do
     expect(card).to eq(card_r)
   end
 
-  it "add 3 days in review_date should be valid" do
-    card.inc_review_date
-    expect(card.review_date).to eq(Date.today + 3.days)
+  describe "if check result true add time in review_date" do
+
+    it "12 hours" do
+      card.inc_review_date(true)
+      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 12.hours)
+    end
+
+    it "plus 3 days" do
+      card.update(level: 1)
+      card.inc_review_date(true)
+      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 3.days)
+    end
+
+    it "plus 7 days" do
+      card.update(level: 2)
+      card.inc_review_date(true)
+      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 7.days)
+    end
+
+    it "plus 2 weeks" do
+      card.update(level: 3)
+      card.inc_review_date(true)
+      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 2.weeks)
+    end
+
+    it "plus 1 month" do
+      card.update(level: 4)
+      card.inc_review_date(true)
+      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 1.month)
+    end
+  end
+
+  it "if check result false 3 times review_date should be plus 12 hours" do
+    3.times { card.inc_review_date(false) }
+    expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 12.hours)
   end
 end

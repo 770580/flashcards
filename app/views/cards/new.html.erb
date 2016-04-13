@@ -1,11 +1,11 @@
 <div class="container">
   <div class="jumbotron">
 	<%= simple_form_for(@card, html: { class: '.form-inline' }) do |f| %>
-	  <%= f.association :deck, default: current_user.decks.choose_active, label: 'Колода' %>
+	  <%= f.association :deck, collection: current_user.decks, default: current_user.decks.choose_active, label: 'Колода' %>
 	  <%= f.input :original_text, label: 'Слово' %>
 	  <%= f.input :translated_text, label: 'Перевод' %>
 	  <%= f.input :card_image, as: :file%>
-	  <%= f.hidden_field :review_date, value: Date.today + 3.days %>
+	  <%= f.hidden_field :review_date, value: Time.now %>
 	  <%= f.hidden_field :user_id, value: current_user.id %> 
 	  <%= f.button :submit, "Создать" %>
 	<% end %>

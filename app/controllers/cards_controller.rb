@@ -10,7 +10,7 @@ class CardsController < ApplicationController
   def edit
     @card = Card.find(params[:id])
   end
-  
+
   def create
     @card = Card.new(card_params)
     if @card.save
@@ -38,17 +38,19 @@ class CardsController < ApplicationController
   def check_card
     input_text = params[:flash_card][:input_text]
     card = Card.find(params[:flash_card][:confirm_id])
-    if card[:original_text] == input_text
-      card.inc_review_date
+    if card.original_text == input_text
+      card.inc_review_date(true)
       flash[:success] = "Верно"
     else
+      card.inc_review_date(false)
       flash[:danger] = "Ошибка"
     end
     redirect_to root_path
   end
 
   private
-    def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :card_image, :deck_id)
-    end
+
+  def card_params
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :card_image, :deck_id, :level, :error_count)
+  end
 end
