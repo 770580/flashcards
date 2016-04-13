@@ -42,7 +42,7 @@ class CardsController < ApplicationController
     if misprint == 0
       card.inc_review_date(true)
       flash[:success] = "Верно"
-    elsif misprint == 1      
+    elsif misprint == 1
       flash[:info] = "Опечатка. Ваш ответ #{input_text}, а правильный #{card.original_text}. Перевод #{card.translated_text}"
     else
       card.inc_review_date(false)
