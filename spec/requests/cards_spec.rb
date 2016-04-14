@@ -27,5 +27,4 @@ describe "Card pages" do
     click_button "Проверить"
     expect(page).to have_content("Опечатка. Ваш ответ dor, а правильный Dog. Перевод Собака")
   end
-
 end
