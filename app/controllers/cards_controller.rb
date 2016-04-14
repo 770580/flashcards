@@ -38,9 +38,12 @@ class CardsController < ApplicationController
   def check_card
     input_text = params[:flash_card][:input_text]
     card = Card.find(params[:flash_card][:confirm_id])
-    if card.original_text == input_text
+    misprint = DamerauLevenshtein.distance(card.original_text.mb_chars.downcase, input_text.mb_chars.downcase)
+    if misprint == 0
       card.inc_review_date(true)
       flash[:success] = "Верно"
+    elsif misprint == 1
+      flash[:info] = "Опечатка. Ваш ответ #{input_text}, а правильный #{card.original_text}. Перевод #{card.translated_text}"
     else
       card.inc_review_date(false)
       flash[:danger] = "Ошибка"
