@@ -28,4 +28,8 @@ class Card < ActiveRecord::Base
     end
     update(review_date: Time.now + inc_time[self.level], level: self.level, error_count: self.error_count)
   end
+
+  def self.pending_cards_count(user)
+    where(user_id: user.id).where("review_date <= ?", Time.now).count
+  end
 end
