@@ -18,4 +18,10 @@ class User < ActiveRecord::Base
   def has_linked_facebook?
     authentications.where(provider: 'facebook').present?
   end
+
+  def self.pending_card_notify
+    self.all.each do |user|
+      NotificationsMailer.pending_cards(user).deliver
+    end
+  end
 end
