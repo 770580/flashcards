@@ -20,3 +20,4 @@
 database.yml
 /config/local_env.yml
 /.env
+/.rvmrc

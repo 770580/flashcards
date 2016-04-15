@@ -80,7 +80,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp.mailgun.org',
-    port:                 465,
+    port:                 587,
     domain:               ENV['MAIL_DOMAIN'],
     user_name:            ENV['MAIL_USERNAME'],
     password:             ENV['MAIL_PASSWORD'],
