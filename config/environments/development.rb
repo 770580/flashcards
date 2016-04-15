@@ -42,11 +42,11 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.mail.ru',
+    address:              'smtp.mailgun.org',
     port:                 465,
+    domain:               ENV['MAIL_DOMAIN'],
     user_name:            ENV['MAIL_USERNAME'],
     password:             ENV['MAIL_PASSWORD'],
     authentication:       'plain',
-    enable_starttls_auto: true  
   }
 end
