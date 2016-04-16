@@ -1,28 +1,20 @@
-require 'rails_helper'  
+require 'rails_helper'
 
-describe 'Notification Mailer' do
-    let(:user) { FactoryGirl.create(:user) }
-    let!(:card) { FactoryGirl.create(:card) }
-    let(:mail) { User.pending_card_notify(user) }
+describe 'Notification Mailer mail should has' do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:card) { FactoryGirl.create(:card) }
+  let(:card_count) { Card.pending_cards_count(user) }
+  let(:mail) { NotificationsMailer.pending_cards(user, card_count).deliver_now }
 
-    it 'renders the subject' do
-      expect(mail.subject).to eq('Есть карточки для тренировки')
-    end
+  it 'subject' do
+    expect(mail.subject).to eq('Есть карточки для тренировки')
+  end
 
-#    it 'renders the receiver email' do
-#      expect(mail.to).to eq([user.email])
-#    end
+  it 'the receiver email' do
+    expect(mail.to).to eq([user.email])
+  end
 
-#    it 'renders the sender email' do
-#      expect(mail.from).to eq(['noreply@company.com'])
-#    end
-
-#    it 'assigns @name' do
-#      expect(mail.body.encoded).to match(user.name)
-#    end
-
-#    it 'assigns @confirmation_url' do
-#      expect(mail.body.encoded)
-#        .to match("http://aplication_url/#{user.id}/confirmation")
-#    end
+  it 'body' do
+    expect(mail.body).to have_content("У тебя есть карточки для тренировки: #{card_count}!")
+  end
 end
