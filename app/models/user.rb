@@ -18,4 +18,11 @@ class User < ActiveRecord::Base
   def has_linked_facebook?
     authentications.where(provider: 'facebook').present?
   end
+
+  def self.pending_card_notify
+    all.each do |user|
+      card_count = Card.pending_cards_count(user)
+      NotificationsMailer.pending_cards(user, card_count).deliver_now if card_count > 0
+    end
+  end
 end

@@ -14,4 +14,9 @@ describe User do
     user.password = user.password_confirmation = "a" * 2
     expect(user).not_to be_valid
   end
+
+  it 'sends pending card notify on email' do
+    FactoryGirl.create(:card)
+    expect { User.pending_card_notify }.to change { ActionMailer::Base.deliveries.count }.by(1)
+  end
 end
