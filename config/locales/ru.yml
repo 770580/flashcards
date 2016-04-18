@@ -16,6 +16,7 @@ ru:
     locale_label: "Язык"
     flash_save_correct: "Данные изменены"
   user_sessions:
+    email: "Email"
     sign_in: "Войти"
     pass_label: "Пароль"
     submit: "Войти"

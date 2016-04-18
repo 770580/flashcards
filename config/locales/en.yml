@@ -37,6 +37,7 @@ en:
     locale_label: "Language"
     flash_save_correct: "Corrections have been changed"
   user_sessions:
+    email: "Email"
     sign_in: "Sign in"
     pass_label: "Password"
     submit: "Sign in"
