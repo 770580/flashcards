@@ -29,10 +29,10 @@ describe User do
       expect(page).to have_content(user.email)
     end
 
-    it "should be failed with incorrext password" do
+    it "should be failed with incorrect password" do
       click_link "Вход"
       user_login(user, " ")
-      expect(page).to have_content("Login failed")
+      expect(page).to have_content("Ошибка в email или пароле")
     end
   end
 

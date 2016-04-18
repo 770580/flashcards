@@ -2,9 +2,10 @@
   <div class="jumbotron">
 	<%= simple_form_for(@user, html: { class: '.form-inline' }) do |f| %>
 	  <%= f.input :email %>
-	  <%= f.input :password, label: 'Пароль' %>
-	  <%= f.input :password_confirmation, label: 'Пароль еще раз' %>
-	  <%= f.button :submit, "Изменить" %>
+	  <%= f.input :password, label: I18n.t('users.pass_label') %>
+	  <%= f.input :password_confirmation, label: I18n.t('users.pass_confirm_label') %>
+	  <%= f.input :locale, collection: ['en', 'ru'], include_blank: false, label: I18n.t('users.locale_label') %>
+	  <%= f.button :submit, I18n.t('form_submit.edit') %>
 	<% end %>
   </div>
 </div>

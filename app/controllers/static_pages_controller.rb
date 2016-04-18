@@ -1,9 +1,11 @@
 class StaticPagesController < ApplicationController
   def index
     if !current_user.decks.first
-      redirect_to decks_path, notice: "Необходимо создать колоду"
+      flash[:info] = I18n.t('static_pages.flash_need_deck')
+      redirect_to decks_path
     elsif !current_user.cards.first
-      redirect_to new_card_path, notice: "Необходимо создать карточку"
+      flash[:info] = I18n.t('static_pages.flash_need_card')
+      redirect_to new_card_path
     elsif current_user.decks.choose_active.first
       @card = current_user.decks.choose_active.first.cards.random
     else

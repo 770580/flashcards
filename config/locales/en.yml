@@ -20,4 +20,44 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  navbar:
+    sign_up: "Sign up"
+    sign_in: "Sign in"
+    exit: "Exit"
+    edit_acc: "Edit account"
+    add_card: "Add card"
+    decks: "Decks"
+    all_cards: "All cards"
+  static_pages:
+    flash_need_deck: "Please create a deck"
+    flash_need_card: "Please create a card"
+  users:
+    pass_label: "Password"
+    pass_confirm_label: "Re-enter password"
+    locale_label: "Language"
+    flash_save_correct: "Corrections have been changed"
+  user_sessions:
+    sign_in: "Sign in"
+    pass_label: "Password"
+    submit: "Sign in"
+    flash_login_failed: "Login failed"
+  decks:
+    deck_name_label: "Deck's name"
+    deck_active_label: "Make active"
+    acrive_form_submit: "Active"
+    new_deck_link: "New deck"
+  cards:
+    deck_label: "Deck"
+    origin_text_label: "Original"
+    transl_text_label: "Translated"
+    flash_correctly: "Correctly"
+    flash_mistake: "Mistake"
+    flash_no_card: "No more cards"
+    flash_misprint: "Misprint. You answer: %{input_text}, right answer: %{original_text}. Translate: %{translated_text}"
+  form_submit:
+    new: "Create"
+    edit: "Edit"
+    delete: "Delete"
+    delete_confirm: "Are you sure?"
+    check: "Check"
+  login_flash: "Please login first"

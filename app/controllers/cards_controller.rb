@@ -41,12 +41,12 @@ class CardsController < ApplicationController
     misprint = DamerauLevenshtein.distance(card.original_text.mb_chars.downcase, input_text.mb_chars.downcase)
     if misprint == 0
       card.inc_review_date(true)
-      flash[:success] = "Верно"
+      flash[:success] = I18n.t('cards.flash_correctly')
     elsif misprint == 1
-      flash[:info] = "Опечатка. Ваш ответ #{input_text}, а правильный #{card.original_text}. Перевод #{card.translated_text}"
+      flash[:info] = I18n.t('cards.flash_misprint', input_text: input_text, original_text: card.original_text, translated_text: card.translated_text)
     else
       card.inc_review_date(false)
-      flash[:danger] = "Ошибка"
+      flash[:danger] = I18n.t('cards.flash_mistake')
     end
     redirect_to root_path
   end
