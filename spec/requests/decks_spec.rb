@@ -14,17 +14,17 @@ describe Deck do
   end
 
   describe "create new deck" do
-    before { click_link "Новая колода" }
+    before { click_link I18n.t('decks.new_deck_link') }
 
     it "not active" do
-      fill_in "Название колоды", with: "First"
-      expect { click_button "Создать" }.to change(Deck, :count).by(1)
+      fill_in I18n.t('decks.deck_name_label'), with: "First"
+      expect { click_button I18n.t('form_submit.new') }.to change(Deck, :count).by(1)
     end
 
     it "active" do
-      fill_in "Название колоды", with: "First"
-      check "Сделать активной"
-      expect { click_button "Создать" }.to change(Deck, :count).by(1)
+      fill_in I18n.t('decks.deck_name_label'), with: "First"
+      check I18n.t('decks.deck_active_label')
+      expect { click_button I18n.t('form_submit.new') }.to change(Deck, :count).by(1)
     end
   end
 end
