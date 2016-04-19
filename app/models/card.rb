@@ -15,19 +15,23 @@ class Card < ActiveRecord::Base
     where("review_date <= ?", Time.now).order("RANDOM()").first
   end
 
-  def inc_review_date(check_result)
-    inc_time = [0, 12.hours, 3.days, 7.days, 2.weeks, 1.month]
-    if check_result
-      self.level += 1 if self.level < 5
-    else
-      self.error_count += 1
-      if self.error_count == 3
-        self.level = 1
-        self.error_count = 0
-      end
-    end
-    update(review_date: Time.now + inc_time[self.level], level: self.level, error_count: self.error_count)
+  def inc_review_date(quality)
+    memo = SuperMemo.new(self, quality)
+    update(review_date: Time.now + memo.interval.days, repetition: memo.repetition, e_factor: memo.e_factor, interval: memo.interval)
   end
+#  def inc_review_date(check_result)
+#    inc_time = [0, 12.hours, 3.days, 7.days, 2.weeks, 1.month]
+#    if check_result
+#      self.level += 1 if self.level < 5
+#    else
+#      self.error_count += 1
+#      if self.error_count == 3
+#        self.level = 1
+#        self.error_count = 0
+#      end
+#    end
+#    update(review_date: Time.now + inc_time[self.level], level: self.level, error_count: self.error_count)
+#  end
 
   def self.pending_cards_count(user)
     where(user_id: user.id).where("review_date <= ?", Time.now).count
