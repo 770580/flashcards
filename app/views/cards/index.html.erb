@@ -7,8 +7,8 @@
         <td><%= card.original_text %></td>
         <td><%= card.translated_text %></td>
         <td><%= card.review_date.strftime("%d/%m/%Y") %></td>
-        <td><%= link_to 'Редактирование', edit_card_path(card), class: 'btn btn-default btn-sm' %></td>
-        <td><%= link_to "Удалить", card, method: :delete, data: { confirm: "Уверен?" }, class: 'btn btn-default btn-sm'%></td>
+        <td><%= link_to I18n.t('form_submit.edit'), edit_card_path(card), class: 'btn btn-default btn-sm' %></td>
+        <td><%= link_to I18n.t('form_submit.delete'), card, method: :delete, data: { confirm: I18n.t('form_submit.delete_confirm') }, class: 'btn btn-default btn-sm'%></td>
       </tr>
     <% end %>
     </table>

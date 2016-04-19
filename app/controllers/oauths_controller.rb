@@ -10,7 +10,7 @@ class OauthsController < ApplicationController
   def callback
     provider = auth_params[:provider]
     if @user = login_from(provider)
-      redirect_to root_path, notice: "Вы зашли через #{provider.titleize}!"
+      redirect_to root_path
     else
       begin
         @user = create_from(provider)
@@ -18,9 +18,9 @@ class OauthsController < ApplicationController
 
         reset_session # protect from session fixation attack
         auto_login(@user)
-        redirect_to root_path, notice: "Вы зашли через #{provider.titleize}!"
+        redirect_to root_path
       rescue
-        redirect_to root_path, notice: "Вы вышли через #{provider.titleize}!"
+        redirect_to root_path
       end
     end
   end

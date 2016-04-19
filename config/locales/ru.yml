@@ -1,0 +1,43 @@
+ru:
+  navbar:
+    sign_up: "Регистрация"
+    sign_in: "Вход"
+    exit: "Выход"
+    edit_acc: "Редактировать аккаунт"
+    add_card: "Добавить карточку"
+    decks: "Колоды"
+    all_cards: "Все карточки"
+  static_pages:
+    flash_need_deck: "Необходимо создать колоду"
+    flash_need_card: "Необходимо создать карточку"
+  users:
+    pass_label: "Пароль"
+    pass_confirm_label: "Пароль еще раз"
+    locale_label: "Язык"
+    flash_save_correct: "Данные изменены"
+  user_sessions:
+    email: "Email"
+    sign_in: "Войти"
+    pass_label: "Пароль"
+    submit: "Войти"
+    flash_login_failed: "Ошибка в email или пароле"
+  decks:
+    deck_name_label: "Название колоды"
+    deck_active_label: "Сделать активной"
+    acrive_form_submit: "Активная"
+    new_deck_link: "Новая колода"
+  cards:
+    deck_label: "Колода"
+    origin_text_label: "Слово"
+    transl_text_label: "Перевод"
+    flash_correctly: "Верно"
+    flash_mistake: "Ошибка"
+    flash_no_card: "Нет больше карточек"
+    flash_misprint: "Опечатка. Ваш ответ %{input_text}, а правильный %{original_text}. Перевод %{translated_text}"
+  form_submit:
+    new: "Создать"
+    edit: "Редактировать"
+    delete: "Удалить"
+    delete_confirm: "Уверен?"
+    check: "Проверить"
+  login_flash: "Сначала необходимо войти"

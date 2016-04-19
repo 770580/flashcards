@@ -19,12 +19,13 @@ gem 'nokogiri'
 gem 'dotenv-rails'
 gem 'damerau-levenshtein'
 gem 'whenever', require: false
+gem 'http_accept_language'
+gem 'rails-i18n', '~> 4.0.0'
 group :production do
   gem 'rails_12factor'
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails'
 end
@@ -42,4 +43,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
+  gem 'poltergeist'
 end

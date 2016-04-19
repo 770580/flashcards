@@ -4,17 +4,17 @@ describe User do
   let(:user) { FactoryGirl.create(:user) }
   before { visit root_path }
   describe "Registration" do
-    before { click_link "Регистрация" }
+    before { click_link I18n.t('navbar.sign_up') }
 
     it "should not create user with invalid parameters" do
-      expect { click_button "Создать" }.not_to change(User, :count)
+      expect { click_button I18n.t('form_submit.new') }.not_to change(User, :count)
     end
 
     it "should create user with valid parameters" do
       fill_in "Email", with: "user@user.ru"
-      fill_in "Пароль", with: "asdf"
-      fill_in "Пароль еще раз", with: "asdf"
-      expect { click_button "Создать" }.to change(User, :count).by(1)
+      fill_in I18n.t('users.pass_label'), with: "asdf"
+      fill_in I18n.t('users.pass_confirm_label'), with: "asdf"
+      expect { click_button I18n.t('form_submit.new') }.to change(User, :count).by(1)
     end
   end
 
@@ -24,21 +24,21 @@ describe User do
     end
 
     it "should be successful login" do
-      click_link "Вход"
+      click_link I18n.t('navbar.sign_in')
       user_login user
       expect(page).to have_content(user.email)
     end
 
-    it "should be failed with incorrext password" do
-      click_link "Вход"
+    it "should be failed with incorrect password" do
+      click_link I18n.t('navbar.sign_in')
       user_login(user, " ")
-      expect(page).to have_content("Login failed")
+      expect(page).to have_content("Ошибка в email или пароле")
     end
   end
 
   it "should be logout" do
     user_login user
-    click_link "Выход"
+    click_link I18n.t('navbar.exit')
     expect(page).to have_content("Войти")
   end
 end

@@ -2,9 +2,10 @@
   <div class="jumbotron">
 	<%= simple_form_for(@user) do |f| %>
 	  <%= f.input :email %>
-	  <%= f.input :password, label: 'Пароль' %>
-	  <%= f.input :password_confirmation, label: 'Пароль еще раз' %>
-	  <%= f.button :submit, "Создать" %>
+	  <%= f.input :password, label: I18n.t('users.pass_label') %>
+	  <%= f.input :password_confirmation, label: I18n.t('users.pass_confirm_label') %>
+	  <%= f.hidden_field :locale, value: locale %>
+	  <%= f.button :submit, I18n.t('form_submit.new') %>
 	<% end %>
   </div>
 </div>

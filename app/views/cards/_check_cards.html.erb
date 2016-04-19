@@ -1,15 +1,15 @@
 <div class="container">
   <div class="jumbotron">
    <% unless @card %>
-     <% flash.now[:info] = "На сегодня нет больше карточек" %>
+     <% flash.now[:info] = I18n.t('cards.flash_no_card') %>
    <% else %>
      <%= image_tag @card.card_image.url if @card.card_image? %>
-     <p>Перевод</p>
+     <p><%=  I18n.t('cards.transl_text_label') %></p>
      <%= @card.translated_text %>
 	   <%= simple_form_for(:flash_card, url: check_card_path, html: { class: '.form-inline' }) do |f| %>
-	     <%= f.input :input_text, label: 'Слово' %>
+	     <%= f.input :input_text, label: I18n.t('cards.origin_text_label') %>
 	     <%= f.hidden_field :confirm_id, value: @card.id %>
-	     <%= f.button :submit, "Проверить" %>
+	     <%= f.button :submit, I18n.t('form_submit.check') %>
 	   <% end %>
    <% end %>
   </div>
