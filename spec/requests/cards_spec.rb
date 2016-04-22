@@ -17,14 +17,26 @@ describe "Card pages" do
   end
 
   it "when check not passed should have message Ошибка" do
-    fill_in I18n.t('cards.origin_text_label'), with: "doggy"
+    fill_in I18n.t('cards.origin_text_label'), with: "doggggg"
     click_button I18n.t('form_submit.check')
     expect(page).to have_content("Ошибка")
   end
 
-  it "when check has misprint should have message Опечатка" do
-    fill_in I18n.t('cards.origin_text_label'), with: "dor"
+  it "when check has 1 misprint should have message Опечатка" do
+    fill_in I18n.t('cards.origin_text_label'), with: "dogg"
     click_button I18n.t('form_submit.check')
-    expect(page).to have_content("Опечатка. Ваш ответ dor, а правильный Dog. Перевод Собака")
+    expect(page).to have_content("Опечатка. Ваш ответ dogg, а правильный Dog. Перевод Собака")
+  end
+
+  it "when check has 2 misprint should have message Опечатка" do
+    fill_in I18n.t('cards.origin_text_label'), with: "doggg"
+    click_button I18n.t('form_submit.check')
+    expect(page).to have_content("Опечатка. Ваш ответ doggg, а правильный Dog. Перевод Собака")
+  end
+
+  it "when check has 3 misprint should have message Опечатка" do
+    fill_in I18n.t('cards.origin_text_label'), with: "dogggg"
+    click_button I18n.t('form_submit.check')
+    expect(page).to have_content("Опечатка. Ваш ответ dogggg, а правильный Dog. Перевод Собака")
   end
 end

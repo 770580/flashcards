@@ -15,23 +15,37 @@ class Card < ActiveRecord::Base
     where("review_date <= ?", Time.now).order("RANDOM()").first
   end
 
+  def check(input_text, answer_timer)
+    quality = self.answer_quality(input_text, answer_timer)
+    self.inc_review_date(quality)
+    case @misprint
+      when 0 then "right"
+      when 1, 2, 3 then "misprint"
+    end 
+  end
+
+  def answer_quality(input_text, answer_timer)
+    @misprint = DamerauLevenshtein.distance(self.original_text.mb_chars.downcase, input_text.mb_chars.downcase)
+    case @misprint
+      when 0 then
+        if answer_timer.to_i < 10
+          5
+        elsif answer_timer.to_i <= 15
+          4
+        else
+          3
+        end
+      when 1 then 3
+      when 2 then 2
+      when 3 then 1
+      else 0
+    end
+  end
+
   def inc_review_date(quality)
     memo = SuperMemo.new(self, quality)
     update(review_date: Time.now + memo.interval.days, repetition: memo.repetition, e_factor: memo.e_factor, interval: memo.interval)
   end
-#  def inc_review_date(check_result)
-#    inc_time = [0, 12.hours, 3.days, 7.days, 2.weeks, 1.month]
-#    if check_result
-#      self.level += 1 if self.level < 5
-#    else
-#      self.error_count += 1
-#      if self.error_count == 3
-#        self.level = 1
-#        self.error_count = 0
-#      end
-#    end
-#    update(review_date: Time.now + inc_time[self.level], level: self.level, error_count: self.error_count)
-#  end
 
   def self.pending_cards_count(user)
     where(user_id: user.id).where("review_date <= ?", Time.now).count

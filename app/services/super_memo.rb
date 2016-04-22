@@ -15,7 +15,7 @@ class SuperMemo
   end
 
   def repetition
-    return 0 if @quality < 3
+    return 1 if @quality < 3
     @card.repetition + 1 
   end
 

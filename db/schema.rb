@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419125953) do
+ActiveRecord::Schema.define(version: 20160421142815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160419125953) do
     t.integer  "user_id"
     t.string   "card_image"
     t.integer  "deck_id"
-    t.integer  "repetition",      default: 0
+    t.integer  "repetition",      default: 1
     t.float    "e_factor",        default: 2.5
     t.integer  "interval",        default: 0
   end

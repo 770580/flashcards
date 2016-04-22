@@ -17,40 +17,114 @@ describe Card do
     expect(card).to eq(card_r)
   end
 
-  describe "if check result true add time in review_date" do
+  describe "card quality" do
 
-    it "12 hours" do
-      card.inc_review_date(true)
-      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 12.hours)
+    it "should be 5" do
+      answer_timer = 9
+      input_text = "Дом"
+      quality = card.answer_quality(input_text, answer_timer)
+      expect(quality).to eq(5)
     end
 
-    it "plus 3 days" do
-      card.update(level: 1)
-      card.inc_review_date(true)
-      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 3.days)
+    it "should be 4" do
+      answer_timer = 13
+      input_text = "Дом"
+      quality = card.answer_quality(input_text, answer_timer)
+      expect(quality).to eq(4)
     end
 
-    it "plus 7 days" do
-      card.update(level: 2)
-      card.inc_review_date(true)
-      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 7.days)
+    it "should be 3" do
+      answer_timer = 16
+      input_text = "Дом"
+      quality = card.answer_quality(input_text, answer_timer)
+      expect(quality).to eq(3)
     end
 
-    it "plus 2 weeks" do
-      card.update(level: 3)
-      card.inc_review_date(true)
-      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 2.weeks)
+    it "should be 3 with misprint 1" do
+      answer_timer = 3
+      input_text = "Домм"
+      quality = card.answer_quality(input_text, answer_timer)
+      expect(quality).to eq(3)
     end
 
-    it "plus 1 month" do
-      card.update(level: 4)
-      card.inc_review_date(true)
-      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 1.month)
+    it "should be 2 with misprint 2" do
+      answer_timer = 3
+      input_text = "Доммм"
+      quality = card.answer_quality(input_text, answer_timer)
+      expect(quality).to eq(2)
+    end
+
+    it "should be 1 with misprint 3" do
+      answer_timer = 3
+      input_text = "Домммм"
+      quality = card.answer_quality(input_text, answer_timer)
+      expect(quality).to eq(1)
+    end
+
+    it "should be 3 with misprint > 3" do
+      answer_timer = 3
+      input_text = "Доммммм"
+      quality = card.answer_quality(input_text, answer_timer)
+      expect(quality).to eq(0)
     end
   end
 
-  it "if check result false 3 times review_date should be plus 12 hours" do
-    3.times { card.inc_review_date(false) }
-    expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 12.hours)
+  describe "check result" do
+    answer_timer = 3  
+    it "should be right" do
+      input_text = "Дом"
+      result = card.check(input_text, answer_timer)
+      expect(result).to eq("right")
+    end
+
+    it "should be misprint 1" do
+      input_text = "Домм"
+      result = card.check(input_text, answer_timer)
+      expect(result).to eq("misprint")
+    end
+
+    it "should be misprint 2" do
+      input_text = "Доммм"
+      result = card.check(input_text, answer_timer)
+      expect(result).to eq("misprint")
+    end
+
+    it "should be misprint 3" do
+      input_text = "Домммм"
+      result = card.check(input_text, answer_timer)
+      expect(result).to eq("misprint")
+    end
+
+    it "should be misprint 4" do
+      input_text = "Домммммм"
+      result = card.check(input_text, answer_timer)
+      expect(result).to eq(nil)
+    end
+  end
+
+  describe "inc review date" do
+    
+    it "quality 5 and repetition 1" do
+      card.inc_review_date(5)
+      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 1.day)
+    end
+
+    it "quality 5 and repetition 2" do
+      card.update(repetition: 2)
+      card.inc_review_date(5)
+      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 6.days)
+    end
+
+    it "quality 5 and repetition 3" do
+      card.update(repetition: 3, interval: 6, e_factor: 2.6)
+      card.inc_review_date(5)
+      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 16.days)
+    end
+
+    it "quality < 3 after previos 5 and repetition 3" do
+      card.update(repetition: 3, interval: 6, e_factor: 2.6)
+      card.inc_review_date(2)
+      expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 1.days)
+    end
   end
 end

@@ -37,16 +37,13 @@ class CardsController < ApplicationController
 
   def check_card
     input_text = params[:flash_card][:input_text]
+    answer_timer = params[:flash_card][:answer_timer]
     card = Card.find(params[:flash_card][:confirm_id])
-    misprint = DamerauLevenshtein.distance(card.original_text.mb_chars.downcase, input_text.mb_chars.downcase)
-    if misprint == 0
-      card.inc_review_date(true)
-      flash[:success] = I18n.t('cards.flash_correctly')
-    elsif misprint == 1
-      flash[:info] = I18n.t('cards.flash_misprint', input_text: input_text, original_text: card.original_text, translated_text: card.translated_text)
-    else
-      card.inc_review_date(false)
-      flash[:danger] = I18n.t('cards.flash_mistake')
+    result = card.check(input_text, answer_timer)
+    case result
+      when "right" then flash[:success] = I18n.t('cards.flash_correctly')
+      when "misprint" then flash[:success] = I18n.t('cards.flash_misprint', input_text: input_text, original_text: card.original_text, translated_text: card.translated_text)
+      else flash[:danger] = I18n.t('cards.flash_mistake')
     end
     redirect_to root_path
   end
