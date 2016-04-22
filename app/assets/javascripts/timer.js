@@ -1,5 +1,5 @@
 function timer() {
-  second = 0
+  second = 0;
   setInterval(function() { answerTimer() }, 1000);
 }
 
