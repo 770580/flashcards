@@ -19,84 +19,64 @@ describe Card do
 
   describe "card quality" do
     it "should be 5" do
-      answer_timer = 9
-      input_text = "Дом"
-      quality = card.answer_quality(input_text, answer_timer)
+      quality = card.answer_quality("Дом", 9)
       expect(quality).to eq(5)
     end
 
     it "should be 4" do
-      answer_timer = 13
-      input_text = "Дом"
-      quality = card.answer_quality(input_text, answer_timer)
+      quality = card.answer_quality("Дом", 13)
       expect(quality).to eq(4)
     end
 
     it "should be 3" do
-      answer_timer = 16
-      input_text = "Дом"
-      quality = card.answer_quality(input_text, answer_timer)
+      quality = card.answer_quality("Дом", 16)
       expect(quality).to eq(3)
     end
 
     it "should be 3 with misprint 1" do
-      answer_timer = 3
-      input_text = "Домм"
-      quality = card.answer_quality(input_text, answer_timer)
+      quality = card.answer_quality("Домм", 3)
       expect(quality).to eq(3)
     end
 
     it "should be 2 with misprint 2" do
-      answer_timer = 3
-      input_text = "Доммм"
-      quality = card.answer_quality(input_text, answer_timer)
+      quality = card.answer_quality("Доммм", 3)
       expect(quality).to eq(2)
     end
 
     it "should be 1 with misprint 3" do
-      answer_timer = 3
-      input_text = "Домммм"
-      quality = card.answer_quality(input_text, answer_timer)
+      quality = card.answer_quality("Домммм", 3)
       expect(quality).to eq(1)
     end
 
     it "should be 3 with misprint > 3" do
-      answer_timer = 3
-      input_text = "Доммммм"
-      quality = card.answer_quality(input_text, answer_timer)
+      quality = card.answer_quality("Доммммм", 3)
       expect(quality).to eq(0)
     end
   end
 
   describe "check result" do
-    answer_timer = 3
     it "should be right" do
-      input_text = "Дом"
-      result = card.check(input_text, answer_timer)
-      expect(result).to eq("right")
+      result = card.check("Дом", 3)
+      expect(result).to eq(true)
     end
 
     it "should be misprint 1" do
-      input_text = "Домм"
-      result = card.check(input_text, answer_timer)
-      expect(result).to eq("misprint")
+      result = card.check("Домм", 3)
+      expect(result).to eq(false)
     end
 
     it "should be misprint 2" do
-      input_text = "Доммм"
-      result = card.check(input_text, answer_timer)
-      expect(result).to eq("misprint")
+      result = card.check("Доммм", 3)
+      expect(result).to eq(false)
     end
 
     it "should be misprint 3" do
-      input_text = "Домммм"
-      result = card.check(input_text, answer_timer)
-      expect(result).to eq("misprint")
+      result = card.check("Домммм", 3)
+      expect(result).to eq(false)
     end
 
     it "should be misprint 4" do
-      input_text = "Домммммм"
-      result = card.check(input_text, answer_timer)
+      result = card.check("Домммммм", 3)
       expect(result).to eq(nil)
     end
   end
