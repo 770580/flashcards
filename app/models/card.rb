@@ -16,29 +16,29 @@ class Card < ActiveRecord::Base
   end
 
   def check(input_text, answer_timer)
-    quality = self.answer_quality(input_text, answer_timer)
-    self.inc_review_date(quality)
+    quality = answer_quality(input_text, answer_timer)
+    inc_review_date(quality)
     case @misprint
       when 0 then "right"
       when 1, 2, 3 then "misprint"
-    end 
+    end
   end
 
   def answer_quality(input_text, answer_timer)
     @misprint = DamerauLevenshtein.distance(self.original_text.mb_chars.downcase, input_text.mb_chars.downcase)
     case @misprint
-      when 0 then
-        if answer_timer.to_i < 10
-          5
-        elsif answer_timer.to_i <= 15
-          4
-        else
-          3
-        end
-      when 1 then 3
-      when 2 then 2
-      when 3 then 1
-      else 0
+    when 0 then
+      if answer_timer.to_i < 10
+        5
+      elsif answer_timer.to_i <= 15
+        4
+      else
+        3
+      end
+    when 1 then 3
+    when 2 then 2
+    when 3 then 1
+    else 0
     end
   end
 
