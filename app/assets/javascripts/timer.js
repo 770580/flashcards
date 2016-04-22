@@ -1,11 +1,11 @@
 function timer() {
+  second = 0
   setInterval(function() { answerTimer() }, 1000);
-  var second = 0;
 }
 
 function answerTimer() {
   second++;
-  $("#answer_timer").val(second);
+  $("#answer_timer").val(second); 
 }
 
 $(document).ready(function(){

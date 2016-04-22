@@ -25,7 +25,7 @@ class Card < ActiveRecord::Base
   end
 
   def answer_quality(input_text, answer_timer)
-    @misprint = DamerauLevenshtein.distance(self.original_text.mb_chars.downcase, input_text.mb_chars.downcase)
+    @misprint = DamerauLevenshtein.distance(original_text.mb_chars.downcase, input_text.mb_chars.downcase)
     case @misprint
     when 0 then
       if answer_timer.to_i < 10
