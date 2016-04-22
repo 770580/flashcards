@@ -19,8 +19,8 @@ class Card < ActiveRecord::Base
     quality = answer_quality(input_text, answer_timer)
     inc_review_date(quality)
     case @misprint
-      when 0 then "right"
-      when 1, 2, 3 then "misprint"
+    when 0 then "right"
+    when 1, 2, 3 then "misprint"
     end
   end
 

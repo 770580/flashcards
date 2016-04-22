@@ -18,7 +18,6 @@ describe Card do
   end
 
   describe "card quality" do
-
     it "should be 5" do
       answer_timer = 9
       input_text = "Дом"
@@ -103,7 +102,6 @@ describe Card do
   end
 
   describe "inc review date" do
-
     it "quality 5 and repetition 1" do
       card.inc_review_date(5)
       expect(card.review_date).to be_within(2.seconds).of(Time.zone.now + 1.day)

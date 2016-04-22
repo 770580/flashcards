@@ -9,7 +9,7 @@ class SuperMemo
     case @card.repetition
     when 1 then 1
     when 2 then 6
-    else ((@card.interval) * e_factor).round
+    else (@card.interval * e_factor).round
     end
   end
 

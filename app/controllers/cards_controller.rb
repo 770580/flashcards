@@ -41,9 +41,9 @@ class CardsController < ApplicationController
     card = Card.find(params[:flash_card][:confirm_id])
     result = card.check(input_text, answer_timer)
     case result
-      when "right" then flash[:success] = I18n.t('cards.flash_correctly')
-      when "misprint" then flash[:success] = I18n.t('cards.flash_misprint', input_text: input_text, original_text: card.original_text, translated_text: card.translated_text)
-      else flash[:danger] = I18n.t('cards.flash_mistake')
+    when "right" then flash[:success] = I18n.t('cards.flash_correctly')
+    when "misprint" then flash[:success] = I18n.t('cards.flash_misprint', input_text: input_text, original_text: card.original_text, translated_text: card.translated_text)
+    else flash[:danger] = I18n.t('cards.flash_mistake')
     end
     redirect_to root_path
   end
