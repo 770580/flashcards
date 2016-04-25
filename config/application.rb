@@ -26,5 +26,6 @@ module Flashcards
     config.assets.initialize_on_precompile = false
     config.i18n.default_locale = :ru
     config.i18n.available_locales = [:en, :ru]
+    config.autoload_paths += %W(#{Rails.root}/app/services)
   end
 end

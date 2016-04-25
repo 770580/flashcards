@@ -37,23 +37,24 @@ class CardsController < ApplicationController
 
   def check_card
     input_text = params[:flash_card][:input_text]
+    answer_timer = params[:flash_card][:answer_timer]
     card = Card.find(params[:flash_card][:confirm_id])
-    misprint = DamerauLevenshtein.distance(card.original_text.mb_chars.downcase, input_text.mb_chars.downcase)
-    if misprint == 0
-      card.inc_review_date(true)
-      flash[:success] = I18n.t('cards.flash_correctly')
-    elsif misprint == 1
-      flash[:info] = I18n.t('cards.flash_misprint', input_text: input_text, original_text: card.original_text, translated_text: card.translated_text)
-    else
-      card.inc_review_date(false)
-      flash[:danger] = I18n.t('cards.flash_mistake')
-    end
+    result = card.check_and_inc_review_date(input_text, answer_timer)
+    check_message(card, input_text, result)
     redirect_to root_path
   end
 
   private
 
+  def check_message(card, input_text, result)
+    if result[:correct]
+      flash[:success] = result[:misprints_count] == 0 ? I18n.t('cards.flash_correctly') : I18n.t('cards.flash_misprint', input_text: input_text, original_text: card.original_text, translated_text: card.translated_text)
+    else
+      flash[:danger] = I18n.t('cards.flash_mistake')
+    end
+  end
+
   def card_params
-    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :card_image, :deck_id, :level, :error_count)
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :user_id, :card_image, :deck_id, :repetition, :e_factor, :interval)
   end
 end
