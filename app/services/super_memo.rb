@@ -27,9 +27,9 @@ class SuperMemo
   def quality
     quality_map = [[5, 4, 3], 3, 2, 1]
     # if a misprint = 0, then the quality is calculated by time spent (time_factor)
-    time_factor = @answer_timer.to_i < 10 ? 0 : @answer_timer.to_i <= 15 ? 1 : 2
+    time_factor = @answer_timer.to_i < 10 ? 0 : (@answer_timer.to_i <= 15 ? 1 : 2)
     # quality =
-    misprint == 0 ? quality_map[misprint][time_factor] : misprint > 3 ? 0 : quality_map[misprint]
+    misprint == 0 ? quality_map[misprint][time_factor] : (misprint > 3 ? 0 : quality_map[misprint])
   end
 
   def misprint

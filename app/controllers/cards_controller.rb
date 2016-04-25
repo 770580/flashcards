@@ -48,8 +48,7 @@ class CardsController < ApplicationController
 
   def check_message(card, input_text, result)
     if result[:correct]
-      return flash[:success] = I18n.t('cards.flash_correctly') if result[:misprints_count] == 0
-      flash[:success] = I18n.t('cards.flash_misprint', input_text: input_text, original_text: card.original_text, translated_text: card.translated_text)
+      flash[:success] = result[:misprints_count] == 0 ? I18n.t('cards.flash_correctly') : I18n.t('cards.flash_misprint', input_text: input_text, original_text: card.original_text, translated_text: card.translated_text)
     else
       flash[:danger] = I18n.t('cards.flash_mistake')
     end
