@@ -20,7 +20,7 @@ class Card < ActiveRecord::Base
     inc_review_date(quality)
     case @misprint
     when 0 then true
-    when 1, 2, 3 then false
+    when 1..3 then false
     end
   end
 
