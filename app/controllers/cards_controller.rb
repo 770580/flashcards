@@ -45,7 +45,7 @@ class CardsController < ApplicationController
   end
 
   private
-  
+
   def check_message(card, input_text, result)
     if result[:correct]
       return flash[:success] = I18n.t('cards.flash_correctly') if result[:misprints_count] == 0

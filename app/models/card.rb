@@ -18,7 +18,7 @@ class Card < ActiveRecord::Base
   def check_and_inc_review_date(input_text, answer_timer)
     memo = SuperMemo.new(self, input_text, answer_timer)
     update(review_date: Time.now + memo.interval.days, repetition: memo.repetition, e_factor: memo.e_factor, interval: memo.interval)
-    result = memo.misprint < 4? true : false
+    result = memo.misprint < 4 ? true : false
     { correct: result, misprints_count: memo.misprint }
   end
 
