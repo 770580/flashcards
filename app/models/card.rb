@@ -15,39 +15,11 @@ class Card < ActiveRecord::Base
     where("review_date <= ?", Time.now).order("RANDOM()").first
   end
 
-  def check(input_text, answer_timer)
-    quality = answer_quality(input_text, answer_timer)
-    inc_review_date(quality)
-    case @misprint
-    when 0 then true
-    when 1..3 then "misprint"
-    end
-  end
-
-  def answer_quality(input_text, answer_timer)
-    @misprint = DamerauLevenshtein.distance(original_text.mb_chars.downcase, input_text.mb_chars.downcase)
-    quality_map = [[5, 4, 3], 3, 2, 1]
-    # if a misprint = 0, then the quality is calculated by time spent (time_factor)
-    time_factor = if answer_timer.to_i < 10
-                    0
-                  elsif answer_timer.to_i <= 15
-                    1
-                  else
-                    2
-                  end
-    # quality =
-    if @misprint == 0
-      quality_map[@misprint][time_factor]
-    elsif @misprint > 3
-      0
-    else
-      quality_map[@misprint]
-    end
-  end
-
-  def inc_review_date(quality)
-    memo = SuperMemo.new(self, quality)
+  def check_and_inc_review_date(input_text, answer_timer)
+    memo = SuperMemo.new(self, input_text, answer_timer)
     update(review_date: Time.now + memo.interval.days, repetition: memo.repetition, e_factor: memo.e_factor, interval: memo.interval)
+    result = memo.misprint < 4? true : false
+    { correct: result, misprints_count: memo.misprint }
   end
 
   def self.pending_cards_count(user)
