@@ -62,17 +62,17 @@ describe Card do
 
     it "should be misprint 1" do
       result = card.check("Домм", 3)
-      expect(result).to eq(false)
+      expect(result).to eq("misprint")
     end
 
     it "should be misprint 2" do
       result = card.check("Доммм", 3)
-      expect(result).to eq(false)
+      expect(result).to eq("misprint")
     end
 
     it "should be misprint 3" do
       result = card.check("Домммм", 3)
-      expect(result).to eq(false)
+      expect(result).to eq("misprint")
     end
 
     it "should be misprint 4" do

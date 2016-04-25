@@ -20,25 +20,28 @@ class Card < ActiveRecord::Base
     inc_review_date(quality)
     case @misprint
     when 0 then true
-    when 1..3 then false
+    when 1..3 then "misprint"
     end
   end
 
   def answer_quality(input_text, answer_timer)
     @misprint = DamerauLevenshtein.distance(original_text.mb_chars.downcase, input_text.mb_chars.downcase)
-    case @misprint
-    when 0 then
-      if answer_timer.to_i < 10
-        5
-      elsif answer_timer.to_i <= 15
-        4
-      else
-        3
-      end
-    when 1 then 3
-    when 2 then 2
-    when 3 then 1
-    else 0
+    quality_map = [[5, 4, 3], 3, 2, 1]
+# if a misprint = 0, then the quality is calculated by time spent (time_factor)
+    time_factor = if answer_timer.to_i < 10
+                    0
+                  elsif answer_timer.to_i <= 15
+                    1
+                  else
+                    2
+                  end
+# quality =
+    if @misprint == 0
+      quality_map[@misprint][time_factor]
+    elsif @misprint > 3
+      0
+    else
+      quality_map[@misprint]
     end
   end
 
