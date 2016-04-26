@@ -21,6 +21,8 @@ gem 'damerau-levenshtein'
 gem 'whenever', require: false
 gem 'http_accept_language'
 gem 'rails-i18n', '~> 4.0.0'
+gem 'rollbar'
+gem 'newrelic_rpm', '3.14.2.312'
 group :production do
   gem 'rails_12factor'
 end
