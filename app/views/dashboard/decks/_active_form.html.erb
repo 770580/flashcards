@@ -1,0 +1,4 @@
+<%= simple_form_for(:active_deck, url: dashboard_active_deck_path, html: { class: '.form-inline' }) do |f| %>
+  <%= f.hidden_field :deck_id, value: deck_id %>
+  <%= f.button :submit, I18n.t('decks.deck_active_label'), class: 'btn btn-default btn-sm' %>
+<% end %>

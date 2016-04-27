@@ -2,10 +2,10 @@ class StaticPagesController < ApplicationController
   def index
     if !current_user.decks.first
       flash[:info] = I18n.t('static_pages.flash_need_deck')
-      redirect_to decks_path
+      redirect_to dashboard_decks_path
     elsif !current_user.cards.first
       flash[:info] = I18n.t('static_pages.flash_need_card')
-      redirect_to new_card_path
+      redirect_to new_dashboard_card_path
     elsif current_user.decks.choose_active.first
       @card = current_user.decks.choose_active.first.cards.random
       response_format

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="jumbotron">
-	<%= simple_form_for(@card, html: { class: '.form-inline' }) do |f| %>
+	<%= simple_form_for(@card, url: dashboard_cards_path, html: { class: '.form-inline' }) do |f| %>
 	  <%= f.association :deck, collection: current_user.decks, default: current_user.decks.choose_active, label: I18n.t('cards.deck_label') %>
 	  <%= f.input :original_text, label: I18n.t('cards.origin_text_label') %>
 	  <%= f.input :translated_text, label: I18n.t('cards.transl_text_label') %>

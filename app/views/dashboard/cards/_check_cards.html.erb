@@ -6,7 +6,7 @@
      <%= image_tag @card.card_image.url if @card.card_image? %>
      <p><%=  I18n.t('cards.transl_text_label') %></p>
      <%= @card.translated_text %>
-	   <%= simple_form_for(:flash_card, url: check_card_path, html: { class: '.form-inline', id: 'check_form' }, remote: true) do |f| %>
+	   <%= simple_form_for(:flash_card, url: dashboard_check_card_path, html: { class: '.form-inline', id: 'check_form' }, remote: true) do |f| %>
 	     <%= f.input :input_text, label: I18n.t('cards.origin_text_label') %>
 	     <%= f.hidden_field :confirm_id, value: @card.id %>
        <%= f.hidden_field :answer_timer, id: 'answer_timer' %>

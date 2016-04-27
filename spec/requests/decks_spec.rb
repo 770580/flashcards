@@ -6,7 +6,7 @@ describe Deck do
   before do
     visit root_path
     user_login user
-    visit decks_path
+    visit dashboard_decks_path
   end
 
   it "should be button Новая колода" do

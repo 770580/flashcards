@@ -6,9 +6,9 @@
         </div>
         <ul class="nav navbar-nav">
         <% if logged_in? %>
-          <li class="active"><%= link_to I18n.t('navbar.all_cards'), cards_path %></li>
-          <li><%= link_to I18n.t('navbar.decks'), decks_path %></li>
-          <li><%= link_to I18n.t('navbar.add_card'), new_card_path %></li>
+          <li class="active"><%= link_to I18n.t('navbar.all_cards'), dashboard_cards_path %></li>
+          <li><%= link_to I18n.t('navbar.decks'), dashboard_decks_path %></li>
+          <li><%= link_to I18n.t('navbar.add_card'), new_dashboard_card_path %></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li id="fat-menu" class="dropdown">

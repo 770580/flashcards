@@ -1,4 +1,4 @@
-class DecksController < ApplicationController
+class Dashboard::DecksController < ApplicationController
   def index
     @deck = current_user.decks
   end
@@ -15,7 +15,7 @@ class DecksController < ApplicationController
     @deck = Deck.new(deck_params)
     if @deck.save
       Deck.make_others_inactive(@deck) if @deck.active
-      redirect_to decks_path
+      redirect_to dashboard_decks_path
     else
       render 'new'
     end
@@ -24,7 +24,7 @@ class DecksController < ApplicationController
   def update
     @deck = Deck.find(params[:id])
     if @deck.update(deck_params)
-      redirect_to decks_path
+      redirect_to dashboard_decks_path
     else
       render 'edit'
     end
@@ -33,14 +33,14 @@ class DecksController < ApplicationController
   def destroy
     @deck = Deck.find(params[:id])
     @deck.destroy
-    redirect_to decks_path
+    redirect_to dashboard_decks_path
   end
 
   def active_deck
     @deck = Deck.find(params[:active_deck][:deck_id])
     @deck.update(active: true)
     Deck.make_others_inactive(@deck)
-    redirect_to decks_path
+    redirect_to dashboard_decks_path
   end
 
   private
