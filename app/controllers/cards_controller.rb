@@ -41,7 +41,7 @@ class CardsController < ApplicationController
     card = Card.find(params[:flash_card][:confirm_id])
     result = card.check_and_inc_review_date(input_text, answer_timer)
     check_message(card, input_text, result)
-    redirect_to root_path
+    return redirect_to root_path
   end
 
   private
