@@ -16,10 +16,11 @@ class StaticPagesController < ApplicationController
   end
 
   private
-    def responce_format
-      respond_to do |format|
-        format.html
-        format.js
-      end
+
+  def responce_format
+    respond_to do |format|
+      format.html
+      format.js
     end
+  end
 end
