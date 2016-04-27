@@ -8,8 +8,19 @@ class StaticPagesController < ApplicationController
       redirect_to new_card_path
     elsif current_user.decks.choose_active.first
       @card = current_user.decks.choose_active.first.cards.random
+      response_format
     else
       @card = current_user.cards.random
+      response_format
+    end
+  end
+
+  private
+
+  def response_format
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 end
