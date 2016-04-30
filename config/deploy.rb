@@ -48,7 +48,6 @@ set :rbenv_roles, :all
 # А это рекомендуют добавить для приложений, использующих ActiveRecord
 set :puma_init_active_record, true
 namespace :deploy do
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
