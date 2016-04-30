@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  remote_user: ec2-user
+  remote_user: ubuntu
   sudo: yes
 
   vars:
@@ -17,71 +17,52 @@
     # Путь до нашего приложения
     application: '{{ home }}/applications/{{ name }}'
 
-#  roles:
-#     - { role: rvm_io.rvm1-ruby, tags: ruby, sudo: True }
-
   tasks:
-    - name: Install EPEL repo.
-      yum:
-        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
-        state: present
-      register: result
-      until: '"failed" not in result'
-      retries: 5
-      delay: 10
+    - name: 'apt | add postgresql-9.4 repo'
+      apt_repository: repo='deb https://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' state=present
 
-    - name: Import EPEL GPG key.
-      rpm_key:
-        key: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
-        state: present
+    - name: 'apt | add postgresql-9.4 repo keys'
+      apt_key: url=https://postgresql.org/media/keys/ACCC4CF8.asc state=present
+    # Обновление кеша и установка необходимых пакетов, всего программного обеспечения,
+    # необходимого для работы нашего сервера
+    - name: 'apt | update'
+      action: 'apt update_cache=yes'
 
-    - name: Install postgresql-9.4 repo.
-      yum:
-        name: "http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-redhat94-9.4-1.noarch.rpm"
-        state: present
-      register: result
-      until: '"failed" not in result'
-      retries: 5
-      delay: 10
+    - name: 'apt | install dependencies'
+      action: 'apt pkg={{ item }}'
+      # with_items - это обычный цикл в Ansible, он возьмёт и прогонит все его элементы через action
+      with_items:
+        - 'build-essential'
+        - 'libssl-dev'
+        - 'libyaml-dev'
+        - 'libreadline6-dev'
+        - 'zlib1g-dev'
+        - 'libcurl4-openssl-dev'
+        - 'git'
+        - 'nginx'
+        - 'postgresql-9.4'
+        - 'postgresql-contrib-9.4'
+        - 'libpq-dev'
+        - 'imagemagick'
+        - 'libmagickwand-dev'
+        - 'nodejs'
+        - 'htop'
 
-    - name: install nodejs
-      yum: name=nodejs state=latest
-
-    - name: install git
-      yum: name=git state=latest
-
-    - name: install nginx
-      yum: name=nginx state=latest
-
-    - name: install postgresql94-server
-      yum: name=postgresql94-server state=latest
-
-    - name: install postgresql94-contrib
-      yum: name=postgresql94-contrib state=latest
-
-    - name: install bzip2
-      yum: name=bzip2 state=latest
-
-    - name: install gcc
-      yum: name=gcc state=latest
-
-    - name: install openssl-devel
-      yum: name=openssl-devel state=latest
-
-    - name: install readline-devel
-      yum: name=readline-devel state=latest
-
-    - name: install zlib-devel
-      yum: name=zlib-devel state=latest
-
-    - name: install ImageMagick
-      yum: name=ImageMagick state=latest
-
-    - name: install htop
-      yum: name=htop state=latest
-
+    # Создаём нашего пользователя deploy, копируем авторизационный ключ,
+    # а так же публичный и приватный ssh ключи
     - name: 'account | create'
       user: 'name={{ user }} shell=/bin/bash'
+
+    - name: 'account | copy authorized keys'
+      # shell - это модуль Ansible, который позволяет выполнять обычные bash команды
+      shell: 'mkdir -p {{ home }}/.ssh -m 700 && cp /home/ubuntu/.ssh/authorized_keys {{ home }}/.ssh && chown -R {{ user }}:{{ user }} {{ home }}/.ssh'
+
+    - name: 'account | copy ssh private key'
+      # Модуль copy просто берёт и копирует файл из папки src в папку dest
+      copy: 'src=keys/id_rsa dest={{ home }}/.ssh/id_rsa owner={{ user }} group={{ user }} mode=0600'
+
+    - name: 'account | copy ssh public key'
+      copy: 'src=keys/id_rsa.pub dest={{ home }}/.ssh/id_rsa.pub owner={{ user }} group={{ user }} mode=0644'
 
     # Устанавливаем ruby-build, rbenv, bundler (шаги взяты из инструкции к установке rbenv)
     - name: 'rbenv | clone repo'
@@ -135,16 +116,6 @@
       shell: 'chown -R {{ user }}:{{ user }} {{ rbenv_root }}'
       when: 'ruby_installed|failed'
 
-    - name: 'initializing postgresql'
-      shell: '/usr/pgsql-9.4/bin/postgresql94-setup initdb'
-      ignore_errors: yes
-
-    - name: 'enable postgresql'
-      service: name=postgresql-9.4 enabled=yes
-
-    - name: 'start postgresql'
-      service: name=postgresql-9.4 state=started
-
     # Устанавливаем posgresql, создаём пользователя, копируем конфиги и создаём конечную базу данных
     - name: 'postgresql | check user'
       shell: 'psql -U postgres -c "\copyright"'
@@ -152,11 +123,11 @@
       ignore_errors: yes
 
     - name: 'postgresql | set auth type'
-      copy: 'src=configs/pg_hba.conf dest=/var/lib/pgsql/9.4/data/pg_hba.conf owner=postgres group=postgres mode=0644'
+      copy: 'src=configs/pg_hba.conf dest=/etc/postgresql/9.4/main/pg_hba.conf owner=postgres group=postgres mode=0644'
       when: 'postgres_login|failed'
 
     - name: 'postgresql | restart service'
-      service: name=postgresql-9.4 state=restarted
+      service: name=postgresql state=restarted
       when: 'postgres_login|failed'
 
     - name: 'postgresql | create shared directory'
@@ -172,18 +143,22 @@
       shell: 'createdb -U postgres -O postgres -E UTF8 -l en_US.UTF-8 {{ name }}_production'
       when: 'postgres_login|failed'
 
+    # Rails setup | копируем .env с нашими настройками
+    - name: 'rails | copy .env'
+      copy: 'src=keys/.env dest={{ application }}/shared/.env owner={{ user }} group={{ user }} mode=0644'
+
     # Установка и настройка веб сервера nginx
     - name: 'nginx | check config'
       command: 'test -f /etc/nginx/sites-enabled/{{ name }}.conf'
       register: 'nginx_config_copied'
       ignore_errors: yes
 
-#    - name: 'nginx | createdir'
-#      shell: 'rm /etc/nginx/sites-enabled/default; mkdir -p etc/nginx/sites-enabled/'
-#      when: 'nginx_config_copied|failed'
+    - name: 'nginx | createdir'
+      shell: 'rm /etc/nginx/sites-enabled/default; mkdir -p etc/nginx/sites-enabled/'
+      when: 'nginx_config_copied|failed'
 
     - name: 'nginx | copy config'
-      template: 'src=configs/nginx.conf dest=/etc/nginx/conf.d/{{ name }}.conf owner=root group=root mode=0644'
+      template: 'src=configs/nginx.conf dest=/etc/nginx/sites-enabled/{{ name }}.conf owner=root group=root mode=0644'
       when: 'nginx_config_copied|failed'
 
     - name: 'nginx | restart service'

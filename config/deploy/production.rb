@@ -49,12 +49,12 @@
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
- server '54.186.9.226',
+ server '54.186.32.125',
    user: 'deploy',
    roles: %w{web app db},
    ssh_options: {
      user: 'deploy', # overrides user setting above
-     keys: %w(/home/a/.ssh/flashaws.pem),
+     keys: %w(ENV['DEPLOY_SSH_KEY']),
      forward_agent: false,
      auth_methods: %w(publickey password)
      # password: 'please use keys'
