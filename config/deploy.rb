@@ -3,7 +3,7 @@ lock '3.5.0'
 
 set :application, 'flashcards'
 set :repo_url, 'git@github.com:770580/flashcards.git'
-set :branch, 'master'
+set :branch, 'twentieth-task'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
