@@ -1,6 +1,6 @@
 <div class="container">
   <div class="jumbotron">
-	<%= simple_form_for(@user, html: { class: '.form-inline' }) do |f| %>
+	<%= simple_form_for(@user, url: home_user_path, html: { class: '.form-inline' }) do |f| %>
 	  <%= f.input :email %>
 	  <%= f.input :password, label: I18n.t('users.pass_label') %>
 	  <%= f.input :password_confirmation, label: I18n.t('users.pass_confirm_label') %>

@@ -28,6 +28,6 @@ class ApplicationController < ActionController::Base
 
   def not_authenticated
     flash[:danger] = I18n.t('login_flash')
-    redirect_to login_path
+    redirect_to home_login_path
   end
 end

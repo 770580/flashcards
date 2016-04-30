@@ -1,4 +1,4 @@
-class StaticPagesController < ApplicationController
+class Home::WelcomeController < ApplicationController
   def index
     if !current_user.decks.first
       flash[:info] = I18n.t('static_pages.flash_need_deck')

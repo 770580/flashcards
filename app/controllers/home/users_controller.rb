@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Home::UsersController < ApplicationController
   skip_before_action :require_login, only: [:index, :new, :create]
 
   def new
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = I18n.t('users.flash_save_correct')
-      redirect_to edit_user_path
+      redirect_to edit_home_user_path
     else
       render 'edit'
     end
