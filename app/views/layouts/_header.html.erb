@@ -6,9 +6,9 @@
         </div>
         <ul class="nav navbar-nav">
         <% if logged_in? %>
-          <li class="active"><%= link_to I18n.t('navbar.all_cards'), cards_path %></li>
-          <li><%= link_to I18n.t('navbar.decks'), decks_path %></li>
-          <li><%= link_to I18n.t('navbar.add_card'), new_card_path %></li>
+          <li class="active"><%= link_to I18n.t('navbar.all_cards'), dashboard_cards_path %></li>
+          <li><%= link_to I18n.t('navbar.decks'), dashboard_decks_path %></li>
+          <li><%= link_to I18n.t('navbar.add_card'), new_dashboard_card_path %></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li id="fat-menu" class="dropdown">
@@ -18,19 +18,19 @@
               </a>
               <ul class="dropdown-menu">
                 <% unless current_user.has_linked_facebook? %>
-                  <li><%= link_to I18n.t('navbar.edit_acc'), edit_user_path(current_user.id) %></li>
+                  <li><%= link_to I18n.t('navbar.edit_acc'), edit_home_user_path(current_user.id) %></li>
                 <% end %>
                 <li class="divider"></li>
-                <li><%= link_to I18n.t('navbar.exit'), :logout, method: :post %></li>
+                <li><%= link_to I18n.t('navbar.exit'), :home_logout, method: :post %></li>
               </ul>
             </li>
           </ul>
         <% else %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to I18n.t('navbar.sign_up'), new_user_path %></li>
-            <li><%= link_to I18n.t('navbar.sign_in'), :login %></li>
-            <li><%= link_to 'Facebook', auth_at_provider_path(provider: :facebook) %></li>
+            <li><%= link_to I18n.t('navbar.sign_up'), new_home_user_path %></li>
+            <li><%= link_to I18n.t('navbar.sign_in'), :home_login %></li>
+            <li><%= link_to 'Facebook', home_auth_at_provider_path(provider: :facebook) %></li>
             <li><%= link_to "en", params.merge({:locale => :en}) %></li>
             <li><%= link_to "ru", params.merge({:locale => :ru}) %></li>
           </ul>

@@ -18,6 +18,6 @@
 
 # Ignore other files
 database.yml
-/config/local_env.yml
 /.env
 /.rvmrc
+/config/provision/keys/*

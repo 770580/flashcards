@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="jumbotron">
+	<%= simple_form_for(@deck, url: dashboard_decks_path, html: { class: '.form-inline' }) do |f| %>
+	  <%= f.input :name, label: I18n.t('decks.deck_name_label') %>
+	  <%= f.input :active, as: :boolean, default: false, label: I18n.t('decks.deck_active_label') %>
+	  <%= f.hidden_field :user_id, value: current_user.id %> 
+	  <%= f.button :submit, I18n.t('form_submit.new') %>
+	<% end %>
+  </div>
+</div>

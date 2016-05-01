@@ -18,7 +18,7 @@ Rails.application.config.sorcery.configure do |config|
   config.facebook.user_info_mapping = { :email => "name" }
   config.facebook.access_permissions = ["email"]
   config.facebook.display = "popup"
-  config.facebook.api_version = "v2.2"
+  config.facebook.api_version = "v2.5"
 
   # --- user config ---
   config.user_config do |user|
